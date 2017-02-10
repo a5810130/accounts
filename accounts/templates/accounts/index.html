@@ -1,0 +1,32 @@
+<head><title> Accounts </title></head>
+<body>
+<style>
+    table, th, td {
+        border : 1px solid black;
+        border-collapse : collapse;
+        padding : 5px;
+        text-align : left;
+    }
+    table th {
+        background-color : #000000;
+        color : #ffffff;
+        
+    }
+</style>
+<center><h1>Account Lists</h1>
+{% if account_list %}
+    <table>
+        <tr>
+            <th width="200">List </th>
+            <th> Date Created </th>
+        </tr>
+        {% for account in account_list %}
+        <tr>
+            <td><a href="{# url 'polls:detail' question.id #}"> {{ account.name }}</a></td>
+            <td>{{ account.create|date:"d/m/Y" }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+</center>
+</body>
