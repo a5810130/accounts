@@ -13,27 +13,28 @@
     }
     tr:hover{background-color:#a0a0a0}
 </style>
-<body>
+<body style="background-color:#aed6f1;">
 <div    align="center" 
-        style=" width:400px;
-                margin:auto;">
+        style=" width:600px;
+                margin:auto;
+                background-color:#7fb3d5;">
 
     <h1>Account Lists</h1>
     {% if account_list %}
-    <table>
+    <table width="580">
         <tr>
-            <th width="300">List </th>
+            <th width="430">List </th>
             <th> Date Created </th>
         </tr>
         {% for account in account_list %}
         <tr onclick="location.href='{% url 'accounts:detail' account.id %}'"
             styte="cursor: pointer">
-            <td>{{ account.name }}</td>
-            <td text-align="right">{{ account.create|date:"d/m/Y" }}</td>
+            <td> &nbsp;{{ account.name }}</td>
+            <td style="text-align:center;">{{ account.create|date:"d/m/Y" }}</td>
         </tr>
         {% endfor %}
-    </table><br>
-    <div align="right">Create your account</div>
+    </table>
+    <div align="right" style=" width:500px;"><ul>Create your account</div>
     {% endif %}
 </div>
 </body>

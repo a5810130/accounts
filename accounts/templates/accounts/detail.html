@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>jQuery UI Datepicker - Default functionality</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    {#<link rel="stylesheet" href="/resources/demos/style.css">#}
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
@@ -30,18 +30,21 @@
     }
 </style>
 </head>
-<body>
+<body style="background-color:#aed6f1;">
 <div    align="center" 
         style=" width:600px;
-                margin:auto;">
+                margin:auto;
+                background-color:#7fb3d5;">
+    {# PAGE HEAD #}
     <h1>{{account.name}}'s account</h1>
+    {# Show list #}
     {% if account.list_set.all %}
-        <table>
+        <table width="580px">
             <tr>
-                <th> Date </th>
-                <th width="600px"> Description </th>
-                <th> Type </th>
-                <th> Value </th>
+                <th width="90px"> Date </th>
+                <th> Description </th>
+                <th width="75px"> Type </th>
+                <th width="150px"> Value(THB) </th>
             </tr>
             {% regroup account.list_set.all|dictsort:"date" by date as order_list %}
             {% for date in order_list %}
@@ -49,8 +52,8 @@
                 <tr>
                     <td> {{date.grouper|date:"d/m/Y" }} </td>
                     <td> {{list.description}} </td>
-                    <td> {{list.get_listType_display}} </td>
-                    <td> {{list.value}} </td>
+                    <td><center> {{list.get_listType_display}} </center></td>
+                    <td style="text-align:right;"> {{list.value}} </td>
                 </tr>
                 {% endfor %}
             {% endfor %}
@@ -58,16 +61,28 @@
                 <td></td>
                 <td>คงเหลือ</td>
                 <td></td>
-                <td>{{account.amount}}</td>
+                <td style="text-align:right;">{{account.amount}}</td>
             </tr>
         </table><br>
     {% endif %}
-    <div align="left">
-    <form name="input" action={% url 'accounts:index' %} method="">           
-    Date: <input type="text" id="datepicker" size="4" value={% now "SHORT_DATE_FORMAT" %}>
-    <input type="submit" value="sumbmit">
+    {# end Show list #}
+    {# add list #}
+    <div align="center">
+    <form name="input" action={# url 'accounts:add' account.id #} method="post">           
+        <input type="text" id="datepicker" size="4" value={% now "SHORT_DATE_FORMAT" %} name="date">
+        <input type="text" name="description" placeholder="Description" size=24>
+        <br>
+        <select name="type">
+            <option value="income">Income</option>
+            <option value="expenses" selected>Expenses</option>
+        </select>
+        <input type="number" placeholder="money(THB)" name="value" >
+        <input type="submit" value="add" style="width:100px;">
     </form>
     </div>
+    {# end add list #}
+    <div align="left">
+    <ul><a href={% url 'accounts:index' %}>BACK</a></div>
 </div>
 </body>
 </html>
