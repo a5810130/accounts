@@ -1,5 +1,4 @@
 <head><title> Accounts </title></head>
-<body>
 <style>
     table, th, td {
         border : 1px solid black;
@@ -10,23 +9,31 @@
     table th {
         background-color : #000000;
         color : #ffffff;
-        
+        text-align : center;
     }
+    tr:hover{background-color:#a0a0a0}
 </style>
-<center><h1>Account Lists</h1>
-{% if account_list %}
+<body>
+<div    align="center" 
+        style=" width:400px;
+                margin:auto;">
+
+    <h1>Account Lists</h1>
+    {% if account_list %}
     <table>
         <tr>
-            <th width="200">List </th>
+            <th width="300">List </th>
             <th> Date Created </th>
         </tr>
         {% for account in account_list %}
-        <tr>
-            <td><a href="{# url 'polls:detail' question.id #}"> {{ account.name }}</a></td>
-            <td>{{ account.create|date:"d/m/Y" }}</td>
+        <tr onclick="location.href='{% url 'accounts:detail' account.id %}'"
+            styte="cursor: pointer">
+            <td>{{ account.name }}</td>
+            <td text-align="right">{{ account.create|date:"d/m/Y" }}</td>
         </tr>
-    {% endfor %}
-    </table>
-{% endif %}
-</center>
+        {% endfor %}
+    </table><br>
+    <div align="right">Create your account</div>
+    {% endif %}
+</div>
 </body>

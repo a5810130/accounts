@@ -3,10 +3,19 @@ from django.db import models
 
 class Account(models.Model):
     name = models.CharField(max_length=30)
-    start_money = models.DecimalField(max_digits=14, decimal_places=2)
     create = models.DateTimeField('created')
     def __str__(self):
         return self.name
+    def amount(self):
+        list_set = self.list_set.all()
+        amount = 0
+        for list_ in list_set:
+            if list_.listType == 'I':
+                amount += list_.value
+            else:
+                amount -= list_.value
+        return amount
+    
 
 class List(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)

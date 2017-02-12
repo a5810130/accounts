@@ -1,24 +1,73 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Datepicker - Default functionality</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
+<head><title>{{account.name}}'s account</title>
+<div>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Datepicker - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
   $( function() {
     $( "#datepicker" ).datepicker();
   } );
   </script>
+    </div>
+<style>
+    table, th, td {
+        border : 1px solid black;
+        border-collapse : collapse;
+        padding : 5px;
+        text-align : left;
+    }
+    table th {
+        background-color : #000000;
+        color : #ffffff;
+        text-align : center;
+    }
+</style>
 </head>
 <body>
- <form name="input" action='aaa' method="">           
- Date: <input type="text" id="datepicker" size="4" value={% now "SHORT_DATE_FORMAT" %}>
- <input type="submit" value="sumbmit">
- </form>
- 
+<div    align="center" 
+        style=" width:600px;
+                margin:auto;">
+    <h1>{{account.name}}'s account</h1>
+    {% if account.list_set.all %}
+        <table>
+            <tr>
+                <th> Date </th>
+                <th width="600px"> Description </th>
+                <th> Type </th>
+                <th> Value </th>
+            </tr>
+            {% regroup account.list_set.all|dictsort:"date" by date as order_list %}
+            {% for date in order_list %}
+                {% for list in date.list %}
+                <tr>
+                    <td> {{date.grouper|date:"d/m/Y" }} </td>
+                    <td> {{list.description}} </td>
+                    <td> {{list.get_listType_display}} </td>
+                    <td> {{list.value}} </td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td>คงเหลือ</td>
+                <td></td>
+                <td>{{account.amount}}</td>
+            </tr>
+        </table><br>
+    {% endif %}
+    <div align="left">
+    <form name="input" action={% url 'accounts:index' %} method="">           
+    Date: <input type="text" id="datepicker" size="4" value={% now "SHORT_DATE_FORMAT" %}>
+    <input type="submit" value="sumbmit">
+    </form>
+    </div>
+</div>
 </body>
 </html>
