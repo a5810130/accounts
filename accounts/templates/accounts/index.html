@@ -34,7 +34,15 @@
         </tr>
         {% endfor %}
     </table>
-    <div align="right" style=" width:500px;"><ul>Create your account</div>
     {% endif %}
+    <h2>Create your account</h2>
+    <div align="left"> 
+    <form action={% url 'accounts:add_account' %} method="post">  
+    {% csrf_token %}
+        Account Name: <input type="text" name="account_name" >
+        <input type = "submit" value = "Create">
+    </form>
+    </div>
+    <br>
 </div>
 </body>
