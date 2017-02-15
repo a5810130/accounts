@@ -67,14 +67,18 @@
     {% endif %}
     {# end Show list #}
     {# add list #}
+    {% if message %}
+    <p>{{message}}<p>
+    {% endif %}
     <div align="center">
-    <form name="input" action={# url 'accounts:add' account.id #} method="post">           
-        <input type="text" id="datepicker" size="4" value={% now "SHORT_DATE_FORMAT" %} name="date">
+    <form action={% url 'accounts:add_list' account.id %} method="post">    
+        {% csrf_token %}
+        <input type="datetime" id="datepicker" size="4" value={% now "SHORT_DATE_FORMAT" %} name="date">
         <input type="text" name="description" placeholder="Description" size=24>
         <br>
         <select name="type">
-            <option value="income">Income</option>
-            <option value="expenses" selected>Expenses</option>
+            <option value="I">Income</option>
+            <option value="E" selected>Expenses</option>
         </select>
         <input type="number" placeholder="money(THB)" name="value" >
         <input type="submit" value="add" style="width:100px;">
