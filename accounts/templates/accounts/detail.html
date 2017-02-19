@@ -28,72 +28,99 @@
         color : #ffffff;
         text-align : center;
     }
+    table td#td01 { 
+        text-align:right;
+    }
 </style>
 </head>
-<body style="background-color:#aed6f1;">
+<body   style="background-color:#aed6f1;">
 <div    align="center" 
         style=" width:600px;
                 margin:auto;
                 background-color:#7fb3d5;">
-    <h1>{{account.name}}'s account</h1>
-        <table width="580px">
-            <tr>
-                <th width="90px"> Date </th>
-                <th> Description </th>
-                <th width="75px"> Type </th>
-                <th width="150px"> Value(THB) </th>
-            </tr>
-            {% for contact in contacts %}
-                <tr>
-                    <td> {{contact.date|date:"d/m/Y" }} </td>
-                    <td> {{contact.description}} </td>
-                    <td><center> {{contact.get_actionType_display}} </center></td>
-                    <td style="text-align:right;"> {{contact.value}} </td>
-                </tr>
-            {% endfor %}
-            <tr>
-                <td></td>
-                <td>คงเหลือ</td>
-                <td></td>
-                <td style="text-align:right;">{{account.amount}}</td>
-            </tr>
-        </table><br>
-        <div class="pagination">
-        <span>
-        page 
-        {% if contacts.has_previous %}
-            <a href="?page={{contacts.previous_page_number}}">
-            {{contacts.previous_page_number}}</a>
-        {% endif %}
-        {{contacts.number}}
+                
+    <h1> {{ account.name }}'s account </h1>
+    
+    <table width="580px">
+        <tr>
+            <th width="90px">   Date        </th>
+            <th>                Description </th>
+            <th width="75px">   Type        </th>
+            <th width="150px">  Value(THB)  </th>
         {% if contacts.has_next %}
-            <a href="?page={{contacts.next_page_number}}">
-            {{contacts.next_page_number}}</a>
+            </tr>
+                <td>                                    </td>
+                <td>            ยอดยกมา                 </td>
+                <td>                                    </td>
+                <td id = td01>  {{ balance_forward }}   </td>
+            </tr>
         {% endif %}
-        </span>
-        </div>
-    {% if messages %}
-    <ul class="messages" style="color:red;">
-        {% for message in messages %}
-        {{message}}
+        {% regroup contacts|dictsort:"date" by date as order_list %}
+        {% for date in order_list reversed%}
+            {% for list in date.list reversed %}
+            <tr>
+                <td>            {{ date.grouper|date:"d/m/Y" }}     </td>
+                <td>            {{ list.description }}              </td>
+                <td><center>    {{ list.get_actionType_display }}   </center></td>
+                <td id = td01
+                    style=" color:
+                            {% if list.actionType == "I" %}
+                                green
+                            {% else %}
+                                red
+                            {%endif%};"> 
+                                {{list.value}}                      </td>
+            </tr>
+            {% endfor %}
         {% endfor %}
-    </ul>
+        <tr>
+            <td>                            </td>
+            <td>            คงเหลือ          </td>
+            <td>                            </td>
+            <td id = td01>  {{ balance }}   </td>
+        </tr>
+    </table> <br>
+    
+    <div class="pagination">
+        <span>
+            page 
+            
+            {% if contacts.has_previous %}
+                <a href="?page={{contacts.previous_page_number}}">
+                {{contacts.previous_page_number}}</a>
+            {% endif %}
+            
+            {{contacts.number}}
+        
+            {% if contacts.has_next %}
+                <a href="?page={{contacts.next_page_number}}">
+                {{contacts.next_page_number}}</a>
+            {% endif %}
+            
+        </span>
+    </div>
+    
+    {% if messages %}
+        <ul style="color:red;">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </ul>
     {% endif %}
+    
     <div align="center">
     <form action={% url 'accounts:add_list' account.id %} method="post">    
         {% csrf_token %}
         <input type="datetime" id="datepicker" size="4" value={% now "SHORT_DATE_FORMAT" %} name="date">
-        <input type="text" name="description" placeholder="Description" size=24>
+        <input type="text" name="description" placeholder="Description" size=30>
         <br>
-        <select name="type">
-            <option value="I">Income</option>
-            <option value="E" selected>Expenses</option>
-        </select>
-        <input type="number" placeholder="money(THB)" name="value" >
-        <input type="submit" value="add" style="width:100px;">
+        <input type="radio" name="type" value="I"> Income    </option>
+        <input type="radio" name="type" value="E"> Expenses  </option>
+        <input type="number" step="any" placeholder="money(THB)" name="value" >
+        <input type="submit" value="add" style="width:70px;">
     </form>
     </div>
-    {# end add list #}
+    
     <div align="left">
     <ul><a href={% url 'accounts:index' %}>BACK</a></div>
 </div>

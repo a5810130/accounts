@@ -8,18 +8,25 @@ class Account(models.Model):
     def __str__(self):
         return self.name
     
-    def amount(self):
-        transaction_set = self.transaction_set.all()
-        amount = 0
-        for action in transaction_set:
+    def balance(self, start, end):
+        transaction = self.transaction_set.order_by('-date','-id')[start-1:end]
+        self.balance = self.balance_forward
+        for action in transaction:
             if action.actionType == 'I':
-                amount += action.value
+                self.balance += action.value
             else:
-                amount -= action.value
-        return amount
+                self.balance -= action.value
+        return self.balance
     
-    def balance_forward(self):
-        pass
+    def balance_forward(self, end):
+        transaction = self.transaction_set.order_by('-date','-id')[end:]
+        self.balance_forward = 0
+        for action in transaction:
+            if action.actionType == 'I':
+                self.balance_forward += action.value
+            else:
+                self.balance_forward -= action.value
+        return self.balance_forward
     
 
 class Transaction(models.Model):
