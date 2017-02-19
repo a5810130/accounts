@@ -38,7 +38,7 @@
     {# PAGE HEAD #}
     <h1>{{account.name}}'s account</h1>
     {# Show list #}
-    {% if account.list_set.all %}
+    {% if account.transaction_set.all %}
         <table width="580px">
             <tr>
                 <th width="90px"> Date </th>
@@ -46,7 +46,7 @@
                 <th width="75px"> Type </th>
                 <th width="150px"> Value(THB) </th>
             </tr>
-            {% regroup account.list_set.all|dictsort:"date" by date as order_list %}
+            {% regroup account.transaction_set.all|dictsort:"date" by date as order_list %}
             {% for date in order_list %}
                 {% for list in date.list %}
                 <tr>

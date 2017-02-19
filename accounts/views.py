@@ -5,7 +5,7 @@ from django.views import generic
 from django.utils import timezone 
 from datetime import datetime
 
-from .models import Account, List
+from .models import Account, Transaction
 
 
 def index(request):
@@ -37,7 +37,7 @@ def add_list(request, account_id):
     try:
         date_str = request.POST['date']
         description = request.POST['description']
-        listType = request.POST['type']
+        actionType = request.POST['type']
         value = request.POST['value']
         if (not date_str.strip() or not description.strip()
         or not value.strip()):
@@ -46,7 +46,7 @@ def add_list(request, account_id):
         return render(request, 'accounts/detail.html', 
                 {'account': account, 'message': "Incomplete information.",})
     date = datetime.strptime(date_str,"%m/%d/%Y")
-    account.list_set.create(date=date, listType=listType,
+    account.transaction_set.create( date=date, actionType=actionType,
                             description=description,
                             value=value)
     account.save()
