@@ -37,9 +37,13 @@
     {% endif %}
     <h2>Create your account</h2>
     <div align="left"> 
-    {% if error_message %}
-        {{error_message}}
+    {% if messages %}
+    <p class="messages" style="color:red;">
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
     {% endif %}
+    </p>
     <form action={% url 'accounts:add_account' %} method="post">  
     {% csrf_token %}
         Account Name: <input type="text" name="account_name" >

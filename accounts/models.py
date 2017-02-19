@@ -4,8 +4,10 @@ from django.db import models
 class Account(models.Model):
     name = models.CharField(max_length=30)
     create = models.DateTimeField('created')
+    
     def __str__(self):
         return self.name
+    
     def amount(self):
         transaction_set = self.transaction_set.all()
         amount = 0
@@ -15,6 +17,9 @@ class Account(models.Model):
             else:
                 amount -= action.value
         return amount
+    
+    def balance_forward(self):
+        pass
     
 
 class Transaction(models.Model):

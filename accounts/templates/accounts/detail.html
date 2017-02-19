@@ -35,10 +35,7 @@
         style=" width:600px;
                 margin:auto;
                 background-color:#7fb3d5;">
-    {# PAGE HEAD #}
     <h1>{{account.name}}'s account</h1>
-    {# Show list #}
-    {% if account.transaction_set.all %}
         <table width="580px">
             <tr>
                 <th width="90px"> Date </th>
@@ -46,16 +43,13 @@
                 <th width="75px"> Type </th>
                 <th width="150px"> Value(THB) </th>
             </tr>
-            {% regroup account.transaction_set.all|dictsort:"date" by date as order_list %}
-            {% for date in order_list %}
-                {% for list in date.list %}
+            {% for contact in contacts %}
                 <tr>
-                    <td> {{date.grouper|date:"d/m/Y" }} </td>
-                    <td> {{list.description}} </td>
-                    <td><center> {{list.get_listType_display}} </center></td>
-                    <td style="text-align:right;"> {{list.value}} </td>
+                    <td> {{contact.date|date:"d/m/Y" }} </td>
+                    <td> {{contact.description}} </td>
+                    <td><center> {{contact.get_actionType_display}} </center></td>
+                    <td style="text-align:right;"> {{contact.value}} </td>
                 </tr>
-                {% endfor %}
             {% endfor %}
             <tr>
                 <td></td>
@@ -64,11 +58,26 @@
                 <td style="text-align:right;">{{account.amount}}</td>
             </tr>
         </table><br>
-    {% endif %}
-    {# end Show list #}
-    {# add list #}
-    {% if message %}
-    <p>{{message}}<p>
+        <div class="pagination">
+        <span>
+        page 
+        {% if contacts.has_previous %}
+            <a href="?page={{contacts.previous_page_number}}">
+            {{contacts.previous_page_number}}</a>
+        {% endif %}
+        {{contacts.number}}
+        {% if contacts.has_next %}
+            <a href="?page={{contacts.next_page_number}}">
+            {{contacts.next_page_number}}</a>
+        {% endif %}
+        </span>
+        </div>
+    {% if messages %}
+    <ul class="messages" style="color:red;">
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+    </ul>
     {% endif %}
     <div align="center">
     <form action={% url 'accounts:add_list' account.id %} method="post">    
