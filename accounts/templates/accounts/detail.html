@@ -40,7 +40,7 @@
                 background-color:#7fb3d5;">
                 
     <h1> {{ account.name }}'s account </h1>
-    
+    {% if account.transaction_set.all %}
     <table width="580px">
         <tr>
             <th width="90px">   Date        </th>
@@ -83,22 +83,25 @@
     
     <div class="pagination">
         <span>
+            {% if contacts.has_other %}
             page 
             
             {% if contacts.has_previous %}
                 <a href="?page={{contacts.previous_page_number}}">
                 {{contacts.previous_page_number}}</a>
             {% endif %}
-            
+
             {{contacts.number}}
         
             {% if contacts.has_next %}
                 <a href="?page={{contacts.next_page_number}}">
                 {{contacts.next_page_number}}</a>
             {% endif %}
-            
+            {% endif %}
         </span>
     </div>
+    
+    {% endif %}
     
     {% if messages %}
         <ul style="color:red;">

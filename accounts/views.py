@@ -27,8 +27,13 @@ def detail(request, account_id):
         contacts = paginator.page(1)
     except EmptyPage:
         contacts = paginator.page(paginator.num_pages)
-    balance_forward = account.balance_forward(contacts.end_index())
-    balance = account.balance(contacts.start_index(), contacts.end_index())
+    balance_forward = 0
+    balance = 0
+    try:
+        balance_forward = account.balance_forward(contacts.end_index())
+        balance = account.balance(contacts.start_index(), contacts.end_index())
+    except: 
+        pass
     return render(request, 'accounts/detail.html', {'account':account, 'contacts':contacts, 'balance_forward':balance_forward, 'balance':balance,})
 
 def add_account(request):
