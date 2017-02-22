@@ -6,8 +6,10 @@
 <div class="main" align="center"> 
     <ul class="navibar">
         <li><a href= {% url 'home' %}> home </a></li>
-        <li><a href= {% url 'accounts:index' %}>
-        accounts</a><li>
+        <li><a href= "https://a5810130.blogspot.com/">
+        Blog</a><li>
+        <li><a href= "https://github.com/a5810130/accounts">
+        GitHub</a><li>
     </ul>
     <div class="detail">
     <h1>Account Lists</h1>
@@ -38,7 +40,7 @@
     <form action={% url 'accounts:add_account' %} method="post">  
     {% csrf_token %}
         Account Name: <input type="text" name="account_name" >
-        <input type = "submit" value = "Create">
+        <input type = "submit" class="submit0" value = "Create">
     </form>
     </div>
     </div>
