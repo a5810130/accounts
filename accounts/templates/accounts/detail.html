@@ -1,4 +1,7 @@
 <!doctype html>
+{% load static from staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}" />
 <html lang="en">
 <head><title>{{account.name}}'s account</title>
 <div>
@@ -16,29 +19,15 @@
   } );
   </script>
     </div>
-<style>
-    table, th, td {
-        border : 1px solid black;
-        border-collapse : collapse;
-        padding : 5px;
-        text-align : left;
-    }
-    table th {
-        background-color : #000000;
-        color : #ffffff;
-        text-align : center;
-    }
-    table td#td01 { 
-        text-align:right;
-    }
-</style>
 </head>
-<body   style="background-color:#aed6f1;">
-<div    align="center" 
-        style=" width:600px;
-                margin:auto;
-                background-color:#7fb3d5;">
-                
+<body>
+    <div class="main" align="center"> 
+    <ul class="navibar">
+        <li><a href= {% url 'home' %}> home </a></li>
+        <li><a href= {% url 'accounts:index' %}>
+        accounts</a><li>
+    </ul>
+    <div class="detail">
     <h1> {{ account.name }}'s account </h1>
     {% if account.transaction_set.all %}
     <table width="580px">
@@ -55,23 +44,20 @@
                 <td id = td01>  {{ balance_forward }}   </td>
             </tr>
         {% endif %}
-        {% regroup contacts|dictsort:"date" by date as order_list %}
-        {% for date in order_list reversed%}
-            {% for list in date.list reversed %}
-            <tr>
-                <td>            {{ date.grouper|date:"d/m/Y" }}     </td>
-                <td>            {{ list.description }}              </td>
-                <td><center>    {{ list.get_actionType_display }}   </center></td>
-                <td id = td01
-                    style=" color:
-                            {% if list.actionType == "I" %}
-                                green
-                            {% else %}
-                                red
-                            {%endif%};"> 
-                                {{list.value}}                      </td>
-            </tr>
-            {% endfor %}
+        {% for list in contacts %}
+        <tr>
+            <td>            {{ list.date|date:"d/m/Y" }}     </td>
+            <td>            {{ list.description }}              </td>
+            <td><center>    {{ list.get_actionType_display }}   </center></td>
+            <td id = td01
+                style=" color:
+                        {% if list.actionType == "I" %}
+                            green
+                        {% else %}
+                            red
+                        {%endif%};"> 
+                            {{list.value}}                      </td>
+        </tr>
         {% endfor %}
         <tr>
             <td>                            </td>
@@ -83,20 +69,15 @@
     
     <div class="pagination">
         <span>
-            {% if contacts.has_other_pages %}
-            page 
-            
-            {% if contacts.has_previous %}
-                <a href="?page={{contacts.previous_page_number}}">
-                {{contacts.previous_page_number}}</a>
-            {% endif %}
-
-            {{contacts.number}}
-        
-            {% if contacts.has_next %}
-                <a href="?page={{contacts.next_page_number}}">
-                {{contacts.next_page_number}}</a>
-            {% endif %}
+            page :
+            {% if contacts.paginator.num_pages < 10 %}
+                {% for page in contacts.paginator.page_range %}
+                    {% if page != contacts.number %}
+                        <a class="page" href="?page={{ page }}">{{ page }}</a>
+                    {% else %}
+                        {{ page }}
+                    {% endif %}
+                {% endfor %}
             {% endif %}
         </span>
     </div>
@@ -111,8 +92,8 @@
         </ul>
     {% endif %}
     
-    <div align="center">
-    <form action={% url 'accounts:add_list' account.id %} method="post">    
+    <div>
+    <form class="inputform" action={% url 'accounts:add_list' account.id %} method="post">    
         {% csrf_token %}
         <input type="datetime" id="datepicker" size="4" value={% now "SHORT_DATE_FORMAT" %} name="date">
         <input type="text" name="description" placeholder="Description" size=30>
@@ -122,10 +103,8 @@
         <input type="number" step="any" placeholder="money(THB)" name="value" >
         <input type="submit" value="add" style="width:70px;">
     </form>
+    <a class="button" href={% url 'accounts:index' %}>BACK</a></div>
     </div>
-    
-    <div align="left">
-    <ul><a href={% url 'accounts:index' %}>BACK</a></div>
 </div>
 </body>
 </html>

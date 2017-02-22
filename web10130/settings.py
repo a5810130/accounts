@@ -40,6 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+STATIC_URL = '/static/'
+
+#STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS = ['web10130/static',
+                    'accounts/static']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,7 +62,7 @@ ROOT_URLCONF = 'web10130.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['web10130/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
