@@ -5,13 +5,16 @@
 <div class="main" align="center"> 
     <ul class="navibar">
         <li><a href= {% url 'home' %}> home </a></li>
-        <li><a href= {% url 'accounts:index' %}>
-        accounts</a><li>
+        <li><a href= "https://a5810130.blogspot.com/">
+        Blog</a><li>
+        <li><a href= "https://github.com/a5810130/accounts">
+        GitHub</a><li>
     </ul>
     <div class="detail">
         <h1> Welcome </h1>
-        <ul>
-        <li><a href=""> Accounts </a></li>
+        <h2> App Lists </h2>
+        <ul class="applink">
+        <li> <a href={% url 'accounts:index' %}> Accounts </a></li>
         </ul>
     </div>
 </div>

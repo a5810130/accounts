@@ -1,6 +1,6 @@
 body {
     background : #aed6f1 url("wallpaper01.jpg") center top;
-    opacity : 1;
+    font-family: 'VT323', monospace;
 }
 
 ul.navibar {
@@ -61,6 +61,8 @@ div.detail{
     padding: 20px;
 }
 table, th, td {
+    font-family : 'Itim', cursive;
+    font-size : 20px;
     border : 1px solid black;
     border-collapse : collapse;
     padding : 5px;
@@ -78,6 +80,21 @@ tr:hover{
     color:#FFFFFF
 }
 
-a {
-    
+ul.applink li a {
+    font-size : 20px;
+    color: black;
+    text-decoration: none;
+}
+ul.applink li a:hover {
+    font-size : 20px;
+    color: gray;
+    text-decoration: underline;
+}
+ul.applink {
+    text-align : left;
+    list-style-type: none;
+}
+
+h2 {
+    text-align : left;
 }
