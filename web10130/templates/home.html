@@ -1,21 +1,25 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
-
+{% static "" as path %}
+<link rel="stylesheet" type="text/css" href='{{path}}/{{skin}}/style.css'/>
+<head><title> Accounts </title></head>
 <body>
 <div class="main" align="center"> 
     <ul class="navibar">
-        <li><a href= {% url 'home' %}> home </a></li>
-        <li><a href= "https://a5810130.blogspot.com/">
+        <li class="navibar"><a href= {% url 'home' %}?skin={{skin}}> home </a></li>
+        <li class="navibar"><a href= "https://a5810130.blogspot.com/">
         Blog</a><li>
-        <li><a href= "https://github.com/a5810130/accounts">
+        <li class="navibar"><a href= "https://github.com/a5810130/accounts">
         GitHub</a><li>
+        <li class="skin" style="background-color: blue;"><a href= "?skin=default"> </a></li>
+        <li class="skin" style="background-color: white;"><a href= "?skin=white"> </a></li>
+        <li class="skin"> skin </li>
     </ul>
     <div class="detail">
         <h1> Welcome </h1>
         <h2> App Lists </h2>
         <ul class="applink">
-        <li> <a href={% url 'accounts:index' %}> Accounts </a></li>
+        <li> <a href={% url 'accounts:index' %}?skin={{skin}}> Accounts </a></li>
         </ul>
     </div>
 </div>
-
+</body>

@@ -1,0 +1,164 @@
+body {
+    background : #aed6f1 url("wallpaper01.jpg") center top;
+    font-family: 'VT323', monospace;
+}
+
+
+a.page {
+    text-decoration: none;
+    color : #333333;
+}
+
+ul.navibar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    width: 600px;
+}
+
+ul.navibar li.navibar{
+    float: left;
+}
+
+ul.navibar li.skin{
+    float: right;
+    margin: 10 5;
+    color: white;
+    font-size: 15px;
+}
+
+ul.navibar li.skin a{
+    display: block;
+    text-align: center;
+    padding: 12px 12px;
+    border-style: solid;
+    border-color: #202020;
+    text-decoration: none;
+}
+
+ul.navibar li.skin a:hover{
+    padding: 12px 12px;
+    border-style: solid;
+    border-color: yellow;
+}
+
+ul.navibar li.navibar a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.navibar li.navibar a:hover{
+    background-color: #a0a0a0;
+}
+
+div.main {
+    width:600px;
+    margin:auto;
+    background-color:#7fb3d5;
+}
+div.detail{
+    padding: 20px;
+}
+table.table1, th, td {
+    font-family : 'Itim', cursive;
+    font-size : 20px;
+    border : 1px solid black;
+    border-collapse : collapse;
+    padding : 5px;
+    text-align : left;
+}
+
+table.table1 th {
+
+    background-color : #000000;
+    color : #ffffff;
+    text-align : center;
+}
+table.table1 tr:hover{
+    background-color:gray;
+    color:#FFFFFF
+}
+
+ul.applink li a {
+    font-size : 20px;
+    color: black;
+    text-decoration: none;
+}
+ul.applink li a:hover {
+    font-size : 20px;
+    color: gray;
+    text-decoration: underline;
+}
+ul.applink {
+    text-align : left;
+    list-style-type: none;
+}
+
+h2 {
+    text-align : left;
+}
+
+.inputform {
+    margin: auto;
+    height:80px;
+    width:400px;
+}
+
+input[type="submit"].submit0 {
+    height: 30px;
+    position: relative;
+    float : right;
+    text-decoration: none;
+    background-color: green;
+    color: white;
+    display: inline-block;
+}
+
+input[type="submit"].submit1 {
+    height: 60px;
+    position: relative;
+    float : right;
+    text-decoration: none;
+    background-color: green;
+    color: white;
+    display: inline-block;
+    padding: 14px 16px;
+}
+
+a.Dbutton {
+    position: relative;
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+    display: inline-block;
+    padding: 4px 4px;
+}
+
+a:hover.Dbutton {
+    background-color: #02185a;
+}
+
+a.button {
+    float : left;
+    position: relative;
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    display: inline-block;
+    padding: 16px 16px;
+}
+
+a:hover.button {
+    background-color: #444444;
+}
+
+.money {
+    width: 30%;
+}

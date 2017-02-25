@@ -42,10 +42,11 @@ INSTALLED_APPS = [
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = "home/web10130/media"
+
 #STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-STATICFILES_DIRS = ['web10130/static',
-                    'accounts/static']
+STATICFILES_DIRS = ['web10130/static',]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,4 +126,3 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'

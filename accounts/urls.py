@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^add_account/$', views.add_account, name='add_account'),
     url(r'^(?P<account_id>[0-9]+)/$', views.detail, name='detail'),
     url(r'^(?P<account_id>[0-9]+)/add_list/$', views.add_list, name='add_list'),
+    url(r'^(?P<account_id>[0-9]+)/download_css/$', views.download_css, name='download_css'),
 ]

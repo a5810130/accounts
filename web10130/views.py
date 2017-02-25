@@ -10,5 +10,6 @@ from datetime import datetime
 from . import urls
 
 def home(request):
-    return render(request, 'home.html',)
+    skin = request.GET.get( 'skin', "default")
+    return render(request, 'home.html',{'skin':skin,})
 

@@ -1,11 +1,10 @@
-<!doctype html>
-{% load static from staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}" />
+
+{% load static %}
+{% static "" as path %}
+<link rel="stylesheet" type="text/css" href='{{path}}{{skin}}/style.css'/>
 <html lang="en">
 <head><title>{{account.name}}'s account</title>
 <div>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>jQuery UI Datepicker - Default functionality</title>
@@ -21,18 +20,21 @@
     </div>
 </head>
 <body>
-    <div class="main" align="center"> 
+<div class="main" align="center"> 
     <ul class="navibar">
-        <li><a href= {% url 'home' %}> home </a></li>
-        <li><a href= "https://a5810130.blogspot.com/">
+        <li class="navibar"><a href= {% url 'home' %}?skin={{skin}}> home </a></li>
+        <li class="navibar"><a href= "https://a5810130.blogspot.com/">
         Blog</a><li>
-        <li><a href= "https://github.com/a5810130/accounts">
+        <li class="navibar"><a href= "https://github.com/a5810130/accounts">
         GitHub</a><li>
+        <li class="skin" style="background-color: blue;"><a href= "?skin=default"> </a></li>
+        <li class="skin" style="background-color: white;"><a href= "?skin=white"> </a></li>
+        <li class="skin"> skin </li>
     </ul>
     <div class="detail">
     <h1> {{ account.name }}'s account </h1>
     {% if account.transaction_set.all %}
-    <table width="100%">
+    <table class="table1" width="100%">
         <tr>
             <th width="20%">   Date        </th>
             <th>                Description </th>
@@ -94,8 +96,8 @@
         </ul>
     {% endif %}
     
-    <a class="button" href={% url 'accounts:index' %}>BACK</a>
-    <form action={% url 'accounts:add_list' account.id %} method="post">    
+    <a class="button" href={% url 'accounts:index' %}?skin={{skin}}>BACK</a>
+    <form action={% url 'accounts:add_list' account.id %}?skin={{skin}} method="post">    
         {% csrf_token %}
         <input type="submit" class="submit1" value="add">
         <div class="inputform" >
