@@ -114,7 +114,6 @@ h2 {
 input[type="submit"].submit0 {
     height: 30px;
     position: relative;
-    float : right;
     text-decoration: none;
     background-color: green;
     color: white;

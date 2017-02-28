@@ -28,7 +28,7 @@
             styte="cursor: pointer">
             <td> &nbsp;{{ account.name }}</td>
             <td style="text-align:center;">{{ account.create|date:"d/m/Y" }}</td>
-            <td> <a class="Dbutton" href={% url 'accounts:download_css' account.id %}>Download<a></td>
+            <td> <a class="Dbutton" href={% url 'accounts:download_csv' account.id %}>Download<a></td>
         </tr>
         {% endfor %}
     </table>

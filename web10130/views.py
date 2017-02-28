@@ -8,8 +8,18 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import datetime
 
 from . import urls
+from django.core.urlresolvers import get_resolver, RegexURLPattern
+import re
 
 def home(request):
+    resolver = get_resolver(urls).reverse_dict.keys()
+    
+    for i in urls.urlpatterns:
+        s = i.regex.pattern
+        a = re.sub(r'[^\w]', ' ', s)
+        if (a.strip()):
+            print(a)
+        #print(resolver)
     skin = request.GET.get( 'skin', "default")
     return render(request, 'home.html',{'skin':skin,})
 

@@ -6,12 +6,14 @@ from django.utils import timezone
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import datetime
-import csv
-import mimetypes
-import os
+import csv, mimetypes, os
+from django.conf import settings
 from wsgiref.util import FileWrapper
+from django.core.files.storage import FileSystemStorage
+
 
 from .models import Account, Transaction
+from .forms import UploadFileForm
 
 
 def index(request):
@@ -76,7 +78,7 @@ def add_list(request, account_id):
     account.save()
     return HttpResponseRedirect(reverse('accounts:detail', args=(account_id))+"?skin="+skin)
     
-def download_css (request, account_id):
+def download_csv (request, account_id):
     account = get_object_or_404(Account, pk=account_id)
     transaction = account.transaction_set.order_by('-date','-id')
     filepath="accounts/download/temp.csv"
@@ -93,8 +95,21 @@ def download_css (request, account_id):
     response['Content-Length']      = os.path.getsize(filepath)    
     response['Content-Disposition'] = "attachment; filename=%s"%download_name
     return response
-    
-    
-        
-    
-    
+
+def upload_csv(request, account_id):
+    account = get_object_or_404(Account, pk=account_id)
+    skin = request.GET.get( 'skin', "default")
+    if request.method == 'POST' and request.FILES['csvFile']:
+        csvFile = request.FILES['csvFile']
+        fs = FileSystemStorage()
+        filename = fs.save(csvFile.name, csvFile)
+        path = os.path.join(settings.MEDIA_ROOT,filename)
+        with open(path, 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                account.transaction_set.create( date=row['date'], 
+                                                actionType=row['type'], description=row['description'],
+                                                value=row['money'])
+                print (row['date'], row['description'], row['type'], row['money'])
+        return HttpResponseRedirect(reverse('accounts:detail', args=(account_id))+"?skin="+skin)
+    return HttpResponseRedirect(reverse('accounts:detail', args=(account_id))+"?skin="+skin)

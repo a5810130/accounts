@@ -33,6 +33,11 @@
     </ul>
     <div class="detail">
     <h1> {{ account.name }}'s account </h1>
+    <form action={% url 'accounts:upload_csv' account.id %}?skin={{skin}} method="post" enctype="multipart/form-data">    
+        {% csrf_token %}
+        <input type="file" name='csvFile'>
+        <input type="submit" class="submit0" value="upload">
+    </form>
     {% if account.transaction_set.all %}
     <table class="table1" width="100%">
         <tr>
@@ -77,7 +82,7 @@
             {% if contacts.paginator.num_pages < 10 %}
                 {% for page in contacts.paginator.page_range %}
                     {% if page != contacts.number %}
-                        <a class="page" href="?page={{ page }}">{{ page }}</a>
+                        <a class="page" href="?page={{ page }}&skin={{skin}}">{{ page }}</a>
                     {% else %}
                         {{ page }}
                     {% endif %}

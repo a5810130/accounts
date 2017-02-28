@@ -42,7 +42,8 @@ INSTALLED_APPS = [
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = "home/web10130/media"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
