@@ -12,14 +12,12 @@ from django.core.urlresolvers import get_resolver, RegexURLPattern
 import re
 
 def home(request):
-    resolver = get_resolver(urls).reverse_dict.keys()
-    
-    for i in urls.urlpatterns:
-        s = i.regex.pattern
-        a = re.sub(r'[^\w]', ' ', s)
-        if (a.strip()):
-            print(a)
-        #print(resolver)
+    urlset = []
+    for url in urls.urlpatterns:
+        temp = url.regex.pattern
+        appname = re.sub('[\W]', '', temp)
+        if (appname.strip() and appname!="admin"):
+            urlset.append(appname)
     skin = request.GET.get( 'skin', "default")
-    return render(request, 'home.html',{'skin':skin,})
+    return render(request, 'home.html',{'urlset':urlset, 'skin':skin})
 

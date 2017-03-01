@@ -1,0 +1,9 @@
+<h1> Add your question </h1>
+<ul>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action = {% url 'polls:create_question' %} method = "post">
+    {% csrf_token %}
+    question: <input type="text" name="question" />
+    <input type = "submit" value = "submit">
+    </form>
+    

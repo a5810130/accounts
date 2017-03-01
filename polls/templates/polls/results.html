@@ -1,0 +1,28 @@
+<h1>{{ question.question_text }}</h1>
+<style>
+    table, th, td {
+        border : 2px solid black;
+        border-collapse : collapse;
+        padding : 10px;
+        text-align : left;
+    }
+    table th {
+        background-color : #a0a0a0;
+    }
+</style>
+<ul>
+    <table>
+        <tr>
+            <th>Choice</th>
+            <th>Votes</th>
+        </tr>
+        {% for choice in question.choice_set.all %}
+        <tr>
+            <td>{{ choice.choice_text }}</td> 
+            <td>{{ choice.votes }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</ul>
+
+<a href="{% url 'polls:detail' question.id %}">Vote again?</a>

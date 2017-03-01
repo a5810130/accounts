@@ -1,0 +1,11 @@
+<h1>question : {{question.question_text}} </h1>
+<ul>
+    {% if message %}<p><strong>{{ message }}</strong></p>{% endif %}
+    <form action = {% url 'polls:create_choice' question.id %} method = "post">
+    {% csrf_token %}
+    choice: <input type="text" name="choice" />
+</ul><br>
+<input type = "submit" value = "cancel" name = "cancel">  
+<input type = "submit" value = "add and finish" name = "finish">
+<input type = "submit" value = "add" name = "add">  
+</form>

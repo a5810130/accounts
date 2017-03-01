@@ -1,0 +1,25 @@
+<h1>{{ question.question_text }}</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<style>
+    table, th, td {
+        border : 1px solid black;
+        border-collapse : collapse;
+        padding : 10px;
+        text-align : left;
+    }
+</style>
+<ul>
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    <table>
+    {% for choice in question.choice_set.all %}
+        <tr>
+            <td><input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" /></td>
+            <td><label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label></td>
+        </tr>
+    {% endfor %}
+    </table>
+    </ul>
+    <input type="submit" value="Vote" /><br>
+</form>
+<a href = "{% url 'polls:add_choice' question.id %}">>>Add new choice </a>

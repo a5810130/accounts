@@ -1,0 +1,33 @@
+<html>
+{% load static %}
+{% static "" as path %}
+<link rel="stylesheet" type="text/css" href='{{path}}{{skin}}/style.css'/>
+<head>
+<title>
+{% block title %}
+{% endblock %}
+</title>
+<div>
+{% block div %}
+{% endblock %}
+</div>
+</head>
+  <body>
+    <div class="main" align="center"> 
+    <ul class="navibar">
+        <li class="navibar"><a href= {% url 'home' %}?skin={{skin}}> home </a></li>
+        <li class="navibar"><a href= "https://a5810130.blogspot.com/">
+        Blog</a><li>
+        <li class="navibar"><a href= "https://github.com/a5810130/accounts">
+        GitHub</a><li>
+        <li class="skin" style="background-color: blue;"><a href= "?skin=default"> </a></li>
+        <li class="skin" style="background-color: white;"><a href= "?skin=white"> </a></li>
+        <li class="skin"> skin </li>
+    </ul>
+    <div class="detail">
+    {% block content %}
+    {% endblock %}
+ </div>
+</div>
+  </body>
+</html>

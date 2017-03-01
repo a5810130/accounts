@@ -17,9 +17,11 @@ from django.conf.urls import url ,include
 from django.contrib import admin
 
 from . import views
+
 app_name = "root"
 urlpatterns = [
     url(r'^$', views.home, name="home"),
     url(r'^accounts/', include('accounts.urls'), name='accounts'),
+    url(r'^polls/', include('polls.urls'), name='polls'),
     url(r'^admin/', admin.site.urls, name='admin'),
 ]

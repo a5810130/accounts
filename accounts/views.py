@@ -87,7 +87,10 @@ def download_csv (request, account_id):
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for action in transaction:
-            writer.writerow({'date':action.date,'description':action.description, 'type':action.actionType, 'money':action.value})
+            writer.writerow({'date':action.date,
+                             'description':action.description, 
+                             'type':action.actionType, 
+                             'money':action.value})
     download_name = account.name+".csv"
     wrapper      = FileWrapper(open(filepath))
     content_type = mimetypes.guess_type(filepath)[0]
@@ -108,8 +111,10 @@ def upload_csv(request, account_id):
             reader = csv.DictReader(csvfile)
             for row in reader:
                 account.transaction_set.create( date=row['date'], 
-                                                actionType=row['type'], description=row['description'],
+                                                actionType=row['type'], 
+                                                description=row['description'],
                                                 value=row['money'])
-                print (row['date'], row['description'], row['type'], row['money'])
-        return HttpResponseRedirect(reverse('accounts:detail', args=(account_id))+"?skin="+skin)
-    return HttpResponseRedirect(reverse('accounts:detail', args=(account_id))+"?skin="+skin)
+        return HttpResponseRedirect(reverse('accounts:detail', 
+                                            args=(account_id))+"?skin="+skin)
+    return HttpResponseRedirect(reverse('accounts:detail', 
+                                        args=(account_id))+"?skin="+skin)

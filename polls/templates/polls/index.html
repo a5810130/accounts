@@ -1,0 +1,36 @@
+<html>
+<head><title> index </title></head>
+<body>
+{# start #}
+<h1> Question Lists </h1>
+<style>
+    table, th, td {
+        border : 1px solid black;
+        border-collapse : collapse;
+        padding : 5px;
+        text-align : left;
+    }
+    table th {
+        background-color : #a0a0a0;
+    }
+</style>
+{% if latest_question_list %}
+    <ul>
+    <table>    
+    <tr>
+        <th>List</th>
+    </tr>
+    {% for question in latest_question_list %}
+        <tr>
+        <td><a href="{% url 'polls:detail' question.id%}"> {{ question.question_text }}</a></td>
+        <td>{{question.pub_date}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+<a href = "{% url 'polls:add_question' %}">>>Add your question</a>
+</body>
+</html>
